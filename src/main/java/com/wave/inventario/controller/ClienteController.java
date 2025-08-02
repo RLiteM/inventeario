@@ -1,7 +1,7 @@
 package com.wave.inventario.controller;
 
 import com.wave.inventario.entities.Clientes;
-import com.wave.inventario.repositories.ClientesRepository;
+import com.wave.inventario.service.ClienteService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,15 +10,21 @@ import java.util.List;
 @RequestMapping("/api/clientes")
 public class ClienteController {
 
-    private final ClientesRepository clienteRepository;
+    private final ClienteService clienteService;
 
-    public ClienteController(ClientesRepository clienteRepository) {
-        this.clienteRepository = clienteRepository;
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
     }
 
-    // GET: listar todos los clientes
+    @PostMapping
+    public Clientes saveClientes(@RequestBody Clientes cliente) {
+        return clienteService.saveClientes(cliente);
+    }
+
     @GetMapping
     public List<Clientes> getAllClientes() {
-        return clienteRepository.findAll();
+        return clienteService.getAllClientes();
     }
+
 }
+
