@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/clientes")
-public class ClienteControler {
+@RequestMapping("/api/clientes") // se recomienda incluir la '/' inicial
+public class ClienteController { // <-- CORREGIDO: nombre con doble 'l'
+    
     @Autowired
     private ClienteService clienteService;
-    @PostMapping()
-    public Clientes saveProduct(@RequestBody)
+
+    @PostMapping
+    public Clientes saveClientes(@RequestBody Clientes cliente) {
+        return clienteService.saveClientes(cliente); // <-- debe coincidir con método del servicio
+    }
 }
